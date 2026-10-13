@@ -1,0 +1,297 @@
+/* Namaz Tracker BD - pure CSS, no frameworks. Mobile-first. */
+:root {
+  --bg: #f7f5ef;
+  --card: #ffffff;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e0d3;
+  --accent: #0f766e;
+  --accent-dark: #115e59;
+  --done: #15803d;
+  --done-bg: #dcfce7;
+  --missed: #b91c1c;
+  --missed-bg: #fee2e2;
+  --radius: 12px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.45;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 12px 40px;
+}
+header.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 4px 8px;
+}
+header.top h1 { font-size: 1.35rem; margin: 0; color: var(--accent-dark); }
+header.top p { margin: 2px 0 0; color: var(--muted); font-size: 0.85rem; }
+#langBtn {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid var(--accent);
+  background: var(--card);
+  color: var(--accent-dark);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+nav.tabs {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0 16px;
+  border-bottom: 2px solid var(--line);
+  overflow-x: auto;
+}
+nav.tabs button {
+  flex: 1 1 auto;
+  border: none;
+  background: none;
+  padding: 12px 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  min-height: 44px;
+  white-space: nowrap;
+}
+nav.tabs button[aria-selected="true"] {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent);
+}
+main section[hidden] { display: none; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.card h2, .card h3 { margin: 0 0 8px; font-size: 1.05rem; color: var(--accent-dark); }
+.muted { color: var(--muted); font-size: 0.9rem; }
+#todayHeading { font-size: 1.15rem; margin: 0 0 10px; }
+
+/* progress */
+.pbar {
+  height: 14px;
+  background: #e9e4d6;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+#progressFill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), #14b8a6);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+#progressText { font-size: 1.6rem; font-weight: 800; color: var(--accent-dark); }
+
+/* prayer cards */
+#prayerCards, #edToggles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.pcard {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+}
+.pname { font-weight: 700; margin-bottom: 8px; }
+.pbtns { display: flex; gap: 8px; }
+.pbtn {
+  flex: 1 1 0;
+  min-height: 44px;
+  border: 2px solid var(--line);
+  background: #fafafa;
+  border-radius: 9px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+}
+.pbtn.on-done { background: var(--done-bg); border-color: var(--done); color: var(--done); }
+.pbtn.on-missed { background: var(--missed-bg); border-color: var(--missed); color: var(--missed); }
+
+/* qada */
+.qrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.qrow:first-of-type { border-top: none; }
+.qname { flex: 1 1 auto; font-weight: 600; }
+.qcount {
+  min-width: 2.2em;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--accent-dark);
+}
+.qmake {
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 2px solid var(--accent);
+  background: var(--card);
+  color: var(--accent-dark);
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.qmake:disabled { opacity: 0.35; cursor: default; }
+#qadaTotal { font-weight: 800; margin-top: 10px; font-size: 1.05rem; }
+
+/* dashboard */
+#dashHero { font-size: 2.4rem; font-weight: 800; color: var(--accent-dark); }
+#dashHeroSub { color: var(--muted); margin-bottom: 4px; }
+#streakVal { font-size: 2rem; font-weight: 800; color: var(--accent-dark); }
+.crow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+.cname { flex: 0 0 76px; font-weight: 600; font-size: 0.9rem; }
+.ctrack { flex: 1 1 auto; height: 12px; background: #e9e4d6; border-radius: 999px; overflow: hidden; }
+.cfill { height: 100%; background: var(--accent); border-radius: 999px; }
+.cpct { flex: 0 0 52px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+#weekGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.wcell {
+  background: #faf9f4;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 2px;
+  text-align: center;
+  font-size: 0.72rem;
+  min-width: 0;
+  overflow: hidden;
+}
+.wcell.wtoday { border-color: var(--accent); border-width: 2px; }
+.wwd {
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wdots { display: flex; justify-content: center; gap: 1px; margin: 4px 0; }
+.wdot { width: 6px; height: 6px; border-radius: 50%; background: #d6d0bd; flex: 0 0 auto; }
+.wdot.on { background: var(--done); }
+.wxy { font-weight: 700; font-variant-numeric: tabular-nums; }
+#trendSvg { width: 100%; height: auto; display: block; }
+.tbar { fill: #99d5cf; }
+.tbar.ttoday { fill: var(--accent); }
+
+/* history */
+.hrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+}
+.hdate { font-weight: 600; }
+.dots { display: inline-flex; gap: 5px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: #d6d0bd; display: inline-block; }
+.dot.d { background: var(--done); }
+.dot.m { background: var(--missed); }
+#editor {
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: #f0fdfa;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+#edTitle { margin: 0 0 10px; font-size: 1.05rem; color: var(--accent-dark); }
+#edLegend { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0 10px; font-size: 0.85rem; color: var(--muted); }
+.leg { display: inline-flex; align-items: center; gap: 5px; }
+.erow { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.btn {
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 9px;
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn.ghost { background: var(--card); color: var(--accent-dark); }
+.btn.danger { background: var(--card); color: var(--missed); border-color: var(--missed); }
+.btn.danger.armed { background: var(--missed); color: #fff; }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.jump { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.jump label { font-weight: 600; }
+input[type="date"], input[type="text"], textarea {
+  font: inherit;
+  padding: 10px;
+  border: 2px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--ink);
+  max-width: 100%;
+}
+textarea { width: 100%; min-height: 110px; resize: vertical; }
+
+/* data */
+.msg { padding: 10px 12px; border-radius: 9px; margin-top: 10px; font-weight: 600; }
+.msg.err { background: var(--missed-bg); color: var(--missed); }
+.msg.ok { background: var(--done-bg); color: var(--done); }
+.field { margin: 12px 0; }
+.field label { display: block; font-weight: 600; margin-bottom: 6px; }
+
+/* toast + footer */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  z-index: 50;
+  max-width: 92vw;
+  text-align: center;
+}
+footer { margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); }
+footer p { color: var(--muted); font-size: 0.85rem; margin: 4px 0; }
+
+@media (max-width: 420px) {
+  #prayerCards, #edToggles { grid-template-columns: 1fr 1fr; }
+  .cname { flex-basis: 64px; }
+}
